@@ -1,0 +1,5 @@
+Flask==1.1.1
+gunicorn==19.9.0
+gspread==3.6.0
+htmltree==0.7.6
+oauth2client==4.1.3
