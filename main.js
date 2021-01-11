@@ -56,6 +56,26 @@ for (var i = 0; i < sliders.length; i++) {
   });
 }
 
+var printer_names = document.getElementById("printer_names");
+var input_filter = document.getElementById("input_filter");
+input_filter.addEventListener("change", (event) => {
+  printer_names.innerHTML = "";
+  Object.values(DATA).forEach((obj) => {
+    let naam = obj[0].NAAM[0];
+    if (
+      !event.target.value ||
+      naam.match(new RegExp(event.target.value, "i"))
+    ) {
+      printer_names.insertAdjacentHTML(
+        "beforeend",
+        `<p style='margin: 0'>${naam}</p>`
+      );
+    }
+  });
+
+  updateMarkers();
+});
+
 function formatAddr(obj) {
   var buf = [];
   obj.ADRESSEN[0]
@@ -94,10 +114,23 @@ function updateMarkers() {
   Object.values(DATA).forEach((obj) => {
     obj.map((addr) => {
       try {
+        let matched_name;
+        if (
+          input_filter.value &&
+          addr.NAAM[0].match(new RegExp(input_filter.value, "i"))
+        ) {
+          matched_name = true;
+        } else {
+          matched_name = false;
+        }
+        if (!input_filter.value) {
+          matched_name = true;
+        }
         if (
           addr.BEGIN[0] >= date_begin &&
           addr.END[0] <= date_end &&
-          addr.LATLON[0]
+          addr.LATLON[0] &&
+          matched_name
         ) {
           markers[addr.ROW[0]].addTo(mymap);
         }

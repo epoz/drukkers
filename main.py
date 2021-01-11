@@ -122,21 +122,24 @@ def index():
                     ),
                     style={"margin-bottom": "1ch"},
                 ),
-                *[
-                    P(
-                        obj[0].get("NAAM", ["&middot;"])[0],
-                        style={"margin": "0", "cursor": "pointer"},
-                    )
-                    for obj in sorted(
-                        DATA.values(), key=lambda x: x[0].get("NAAM", [""])[0]
-                    )
-                ],
+                Div(
+                    *[
+                        P(
+                            obj[0].get("NAAM", ["&middot;"])[0],
+                            style={"margin": "0", "cursor": "pointer"},
+                        )
+                        for obj in sorted(
+                            DATA.values(), key=lambda x: x[0].get("NAAM", [""])[0]
+                        )
+                    ],
+                    id="printer_names"
+                ),
                 style={
                     "color": "#ccc",
                     "height": "90vh",
                     "overflow-y": "scroll",
                     "width": "30vw",
-                }
+                },
             ),
             Div(
                 Div(
