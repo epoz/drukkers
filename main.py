@@ -1,8 +1,10 @@
 import os, json
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_file
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from htmltree import *
+import io
+
 
 app = Flask(__name__)
 
@@ -73,6 +75,13 @@ def fetch_data():
     return DATA
 
 
+@app.route("/githublogo")
+def githublogo():
+    return send_file(
+        io.BytesIO(open("GitHub-Mark-32px.png", "rb").read()), mimetype="image/png"
+    )
+
+
 @app.route("/")
 def index():
     if not DATA:
@@ -102,14 +111,32 @@ def index():
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==",
             crossorigin="",
         ),
+        Script(
+            _async="",
+            defer="",
+            data_domain="typograaf.com",
+            src="https://plausible.io/js/plausible.js",
+        ),
     )
     body = Body(
         Header(
-            H1(
-                "Early Modern Printers",
-                _class="banner",
-                style={"color": "#eee", "margin": "1vw 0 0 2vw"},
-            )
+            *[
+                H1(
+                    "Early Modern Printers",
+                    _class="banner",
+                    style={"color": "#eee", "margin": "1vw 0 0 2vw"},
+                ),
+                A(
+                    Img(src="/githublogo",),
+                    href="https://github.com/epoz/drukkers",
+                    style={
+                        "position": "absolute",
+                        "top": "0",
+                        "right": "0",
+                        "padding": "10px 10px 0 0",
+                    },
+                ),
+            ]
         ),
         Div(
             Div(
