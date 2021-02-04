@@ -44,14 +44,22 @@ Marco van Egmond <M.vanEgmond@uu.nl>
 
 ## TODO list
 
-[x] Make basic viewable map using Leaflet/OpenLayers that changes as the spreadsheet is updated.
+- [x] Make basic viewable map using Leaflet/OpenLayers that changes as the spreadsheet is updated.
 
-[ ] Find reference to the Amsterdam historical map used in the original geocontext project
+- [x] Add links to STCN (ISTC later?)
 
-[ ] Add Metabotnik of printers devices, and link to site
+- [ ] Add Metabotnik of printers devices, and link to site
 
-[ ] Add links to STCN (ISTC later?)
+- [ ] Convert and make data available as Linked Data (which vocabs?)
 
-[ ] Convert and make data available as Linked Data (which vocabs?)
+- [ ] Add Antwerp data
 
-[ ] Convert and add Utrecht data to central spreadsheet
+- [ ] Convert and add Utrecht data to central spreadsheet
+
+- [ ] Find reference to the Amsterdam historical map used in the original geocontext project
+
+## Links
+
+https://twitter.com/RenskeHoff/status/1350034097054371840
+https://dams.antwerpen.be/asset/M2MqqUJAPTtBIiFSQcxqptum
+https://search.museumplantinmoretus.be/details/collect/149311
