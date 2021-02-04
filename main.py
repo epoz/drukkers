@@ -124,15 +124,42 @@ def index():
                 ),
                 Div(
                     *[
-                        P(
-                            obj[0].get("NAAM", ["&middot;"])[0],
+                        Div(
+                            *[
+                                P(
+                                    obj[0].get("NAAM", ["&middot;"])[0],
+                                    style={"margin": "0", "display": "inline"},
+                                ),
+                                A(
+                                    "STCN",
+                                    href=f"https://picarta.oclc.org/psi/xslt/DB=3.11/XMLPRS=Y/PPN?PPN={obj[0].get('RECORD', '_')[0]}",
+                                    style={
+                                        "text-decoration": "none",
+                                        "color": "#ddd",
+                                        "font-size": "75%",
+                                        "margin-left": "4ch",
+                                    },
+                                    target="_STCN",
+                                ),
+                                A(
+                                    "DATA",
+                                    href=f"http://data.bibliotheken.nl/doc/thes/p{obj[0].get('RECORD', '_')[0]}",
+                                    style={
+                                        "text-decoration": "none",
+                                        "color": "#ddd",
+                                        "font-size": "75%",
+                                        "margin-left": "1ch",
+                                    },
+                                    target="_STCN",
+                                ),
+                            ],
                             style={"margin": "0", "cursor": "pointer"},
                         )
                         for obj in sorted(
                             DATA.values(), key=lambda x: x[0].get("NAAM", [""])[0]
                         )
                     ],
-                    id="printer_names"
+                    id="printer_names",
                 ),
                 style={
                     "color": "#ccc",
@@ -161,7 +188,11 @@ def index():
                         id="slider_end",
                         _class="dateslider",
                     ),
-                    style={"margin-bottom": "0.5vw", "text-align": "right"},
+                    style={
+                        "margin-bottom": "0.5vw",
+                        "text-align": "right",
+                        "color": "#eee",
+                    },
                 ),
                 Div(
                     id="mapid",
