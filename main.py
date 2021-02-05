@@ -114,7 +114,7 @@ def index():
         Script(
             _async="",
             defer="",
-            data_domain="typograaf.com",
+            data_domain="bookhistory.typograaf.com",
             src="https://plausible.io/js/plausible.js",
         ),
     )
@@ -126,9 +126,22 @@ def index():
                     _class="banner",
                     style={"color": "#eee", "margin": "1vw 0 0 2vw"},
                 ),
-                A(
-                    Img(src="/githublogo",),
-                    href="https://github.com/epoz/drukkers",
+                Div(
+                    *[
+                        A(
+                            "Visitor Stats",
+                            href="https://plausible.io/bookhistory.typograaf.com",
+                            style={
+                                "text-decoration": "none",
+                                "color": "#ddd",
+                                "margin-right": "20px",
+                            },
+                        ),
+                        A(
+                            Img(src="/githublogo",),
+                            href="https://github.com/epoz/drukkers",
+                        ),
+                    ],
                     style={
                         "position": "absolute",
                         "top": "0",
@@ -165,17 +178,6 @@ def index():
                                         "color": "#ddd",
                                         "font-size": "75%",
                                         "margin-left": "4ch",
-                                    },
-                                    target="_STCN",
-                                ),
-                                A(
-                                    "DATA",
-                                    href=f"http://data.bibliotheken.nl/doc/thes/p{obj[0].get('RECORD', '_')[0]}",
-                                    style={
-                                        "text-decoration": "none",
-                                        "color": "#ddd",
-                                        "font-size": "75%",
-                                        "margin-left": "1ch",
                                     },
                                     target="_STCN",
                                 ),
