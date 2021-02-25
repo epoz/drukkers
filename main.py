@@ -129,15 +129,6 @@ def index():
                 Div(
                     *[
                         A(
-                            "Visitor Stats",
-                            href="https://plausible.io/bookhistory.typograaf.com",
-                            style={
-                                "text-decoration": "none",
-                                "color": "#ddd",
-                                "margin-right": "20px",
-                            },
-                        ),
-                        A(
                             Img(src="/githublogo",),
                             href="https://github.com/epoz/drukkers",
                         ),
@@ -258,10 +249,60 @@ def index():
         body,
         Script("DATA = %s" % json.dumps(DATA)),
         Script(open("main.js").read()),
-        #        Script("\n".join(indivs)),
     )
 
     return doc.render()
+
+
+def make_md_from_ss(destination):
+    "For the given [data] create a Markdown file for each printer with the basics in folder [destination]"
+    if not DATA:
+        fetch_data()
+
+    normalized = {}
+    for obj in DATA.values():
+        for addr in obj:
+            RECORD = addr.get("RECORD")[0]
+            tmp = normalized.setdefault(RECORD, {})
+            tmp["naam"] = addr.get("NAAM")
+            tmp["plaats"] = addr.get("PLAATS")
+            if (
+                addr.get("STRAAT")
+                and addr.get("STRAAT")[0]
+                and addr.get("STRAAT")[0] != "geen"
+            ):
+                tmpA = {
+                    "begin": addr.get("BEGIN", [""]),
+                    "end": addr.get("END", [""]),
+                    "straat": addr.get("STRAAT"),
+                    "latlon": addr.get("LATLON"),
+                }
+                tmp.setdefault("addressen", []).append(tmpA)
+
+    for k, v in normalized.items():
+        with open(os.path.join(destination, "markdown", f"{k}.md"), "w") as F:
+            F.write(f"# {v['naam'][0]}\n\n## {v['plaats'][0]}\n\n")
+            for a in v.get("addressen", []):
+                aaa = {}
+                for aa in "begin end straat".split(" "):
+                    aaa[aa] = [""]
+                    if aa in a:
+                        aa_val = a.get(aa)
+                        if aa_val:
+                            aaa[aa] = aa_val
+
+                F.write(f"{aaa['begin'][0]} - {aaa['end'][0]}  {aaa['straat'][0]}  ")
+                ll = a.get("latlon")
+                if ll:
+                    ll = ll[0]
+                    F.write(
+                        f"[map](https://www.openstreetmap.org/#map=16/{ll[0]}/{ll[1]})\n\n"
+                    )
+        mdfile = os.path.join(destination, "markdown", f"{k}.md")
+        outfile = os.path.join(destination, "html", f"{k}")
+        os.system(f"pandoc -o {outfile}.html {mdfile}")
+        outfile = os.path.join(destination, "doc", f"{k}")
+        os.system(f"pandoc -o {outfile}.docx {mdfile}")
 
 
 if __name__ == "__main__":
