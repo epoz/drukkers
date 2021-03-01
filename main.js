@@ -56,19 +56,40 @@ for (var i = 0; i < sliders.length; i++) {
   });
 }
 
+function copyToClipboard(data) {
+  const el = document.createElement("textarea");
+  el.value = data;
+  el.setAttribute("readonly", "");
+  el.style.position = "absolute";
+  el.style.left = "-9999px";
+  document.body.appendChild(el);
+  const selected =
+    document.getSelection().rangeCount > 0
+      ? document.getSelection().getRangeAt(0)
+      : false;
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
+  if (selected) {
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(selected);
+  }
+}
+
 var printer_names = document.getElementById("printer_names");
 var input_filter = document.getElementById("input_filter");
 input_filter.addEventListener("change", (event) => {
   printer_names.innerHTML = "";
   Object.values(DATA).forEach((obj) => {
     let naam = obj[0].NAAM[0];
+    let ppn = obj[0].RECORD[0];
     if (
       !event.target.value ||
       naam.match(new RegExp(event.target.value, "i"))
     ) {
       printer_names.insertAdjacentHTML(
         "beforeend",
-        `<p style='margin: 0'>${naam}</p>`
+        `<p onclick='copyToClipboard("${ppn} ${naam}")' data-ppn='${ppn}' style='margin: 0; cursor: pointer'>${naam}</p>`
       );
     }
   });
