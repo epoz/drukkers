@@ -5,7 +5,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 from htmltree import *
 import io
 
-
 app = Flask(__name__)
 
 DATA = None
@@ -80,6 +79,17 @@ def githublogo():
     return send_file(
         io.BytesIO(open("GitHub-Mark-32px.png", "rb").read()), mimetype="image/png"
     )
+
+
+@app.route("/about")
+def about():
+    return """<h1>About this map</h1>
+ 
+<p>The records of booksellers, printers and publishers shown on this map are from different sources. Most of them come from the Short Title Catalogue, Netherlands (STCN). All of them are curated.</p>
+<p>On the one hand research by bibliographers was kept to a minimum and information on printers and publishers was taken from the title-page and colophon. On the other hand information has been incorporated from published sources such as Weller or Simoni.</p>
+<p>Mistakes - or information perceived as such - have been corrected but each record that was created for this map links to the original STCN Thesaurus record. Additional information was and will be added from printed sources and archival matter.</p>
+<p>The most important addition lies in the lists of publishers and printers that are added to each record. In time this will make it possible to explore networks and also to examine in detail how the world of the book evolved over time.</p>
+"""
 
 
 @app.route("/")
@@ -190,10 +200,10 @@ def index():
             ),
             Div(
                 Div(
-                    Span("Begin 1500", id="span_begin"),
+                    Span("Begin 1450", id="span_begin"),
                     Input(
                         type="range",
-                        min="1500",
+                        min="1450",
                         max="1800",
                         value="1500",
                         id="slider_begin",
@@ -202,7 +212,7 @@ def index():
                     Span("End 1800", id="span_end", style={"margin-left": "1ch"}),
                     Input(
                         type="range",
-                        min="1500",
+                        min="1450",
                         max="1800",
                         value="1800",
                         id="slider_end",
