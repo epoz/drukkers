@@ -111,16 +111,16 @@ var markers = {};
 Object.values(DATA).forEach((obj) => {
   obj.map((addr) => {
     if (addr.LATLON[0])
-      markers[addr.ROW[0]] = L.marker(addr.LATLON[0])
-        .addTo(mymap)
-        .bindPopup(
-          `<h1>${addr.NAAM[0]}</h1><p>${addr.BEGIN[0]} - ${
-            addr.END[0]
-          }</p> ${formatAddr(addr)}`
-        );
+      markers[addr.ROW[0]] = L.marker(addr.LATLON[0]).bindPopup(
+        `<h1>${addr.NAAM[0]}</h1><p>${addr.BEGIN[0]} - ${
+          addr.END[0]
+        }</p> ${formatAddr(addr)}`
+      );
   });
 });
 
+var markersGroup = L.markerClusterGroup();
+mymap.addLayer(markersGroup);
 function updateMarkers() {
   var slider_begin = document.getElementById("slider_begin");
   var date_begin = parseInt(slider_begin.value);
@@ -128,9 +128,7 @@ function updateMarkers() {
   var slider_end = document.getElementById("slider_end");
   var date_end = parseInt(slider_end.value);
 
-  Object.values(markers).map((mrkr) => {
-    mrkr.remove();
-  });
+  markersGroup.clearLayers();
 
   Object.values(DATA).forEach((obj) => {
     obj.map((addr) => {
@@ -153,7 +151,7 @@ function updateMarkers() {
           addr.LATLON[0] &&
           matched_name
         ) {
-          markers[addr.ROW[0]].addTo(mymap);
+          markersGroup.addLayer(markers[addr.ROW[0]]);
         }
       } catch (error) {
         console.log(error, addr);
