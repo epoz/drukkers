@@ -128,3 +128,73 @@ len([(s,p,o) for s,p,o in triples if s in publishers])
 {'http://www.w3.org/1999/02/22-rdf-syntax-ns#type': ['http://schema.org/GovernmentOrganization'],
  'http://schema.org/location': ['http://data.bibliotheken.nl/id/thes/p075588749']}
 ```
+
+After the initial exploration, back to reading the LOD page at the KB site, I notice the link for `schema:workExample` and follow that to: http://data.bibliotheken.nl/doc/nbt/p192741446
+
+Which gives us a nice overview:
+
+```
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://schema.org/alternateName> "Het vermakelijck landt-leven. Part 3" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://data.bibliotheken.nl/def#stcnFingerprint> "168304 - b1 A2 $sic : b2 L3 blij" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://schema.org/inLanguage> "iso639-3:dut" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://data.bibliotheken.nl/def#typographicalCharacteristics> "illustrations within collation" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.org/Book> .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://data.bibliotheken.nl/def#bibliographicFormat> "4°" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://schema.org/about> <http://data.bibliotheken.nl/id/thes/p155446258> .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://data.bibliotheken.nl/def#typographicalCharacteristics> "typeface Gothic" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://data.bibliotheken.nl/def#statementOfResponsibilityPart> _:B1d9403b805ce67ad2c15ff827a61be7e .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://schema.org/about> <http://data.bibliotheken.nl/id/thes/p155446223> .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://data.bibliotheken.nl/def#hasCollationalFormula> "A-L`SUP`4`LO`" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://schema.org/author> _:B3a843468d07ce8109863a99a81a4cdde .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://data.bibliotheken.nl/def#typographicalCharacteristics> "typographical title page" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://schema.org/description> "Includes: Den naerstigen byen-houder, onderrechtende hoe men [...] de byen [...] onderhouden sal; and: De verstandige kock, of Sorghvuldige huyshoudster" .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://schema.org/name> "De medicyn-winckel, of ervaren huys-houder: zijnde het III. deel van het vermakelyck landt-leven." .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://xmlns.com/foaf/0.1/isPrimaryTopicOf> _:Bb1767ed6751eff805eda8a2a9b8250a7 .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://schema.org/publication> _:Bfb9c8a93355c2b54d69472b291ee6851 .
+<http://data.bibliotheken.nl/id/nbt/p192741446> <http://data.bibliotheken.nl/def#typographicalCharacteristics> "illustrations on title page" .
+_:B1d9403b805ce67ad2c15ff827a61be7e <http://schema.org/position> "1" .
+_:B1d9403b805ce67ad2c15ff827a61be7e <http://schema.org/description> "By P. Nyland" .
+_:Bfb9c8a93355c2b54d69472b291ee6851 <http://schema.org/publishedBy> <http://data.bibliotheken.nl/id/thes/p075547279> .
+_:Bfb9c8a93355c2b54d69472b291ee6851 <http://schema.org/publishedBy> <http://data.bibliotheken.nl/id/thes/p075547244> .
+_:Bfb9c8a93355c2b54d69472b291ee6851 <http://schema.org/location> "iso3166-1:NLD" .
+_:Bfb9c8a93355c2b54d69472b291ee6851 <http://schema.org/startDate> "1683" .
+_:Bfb9c8a93355c2b54d69472b291ee6851 <http://schema.org/description> "Amsterdam, wed. M. de Groot and G. de Groot, 1683" .
+_:Bfb9c8a93355c2b54d69472b291ee6851 <http://semanticweb.cs.vu.nl/2009/11/sem/hasEarliestBeginTimestamp> "1683"^^<http://www.w3.org/2001/XMLSchema#gYear> .
+_:Bfb9c8a93355c2b54d69472b291ee6851 <http://semanticweb.cs.vu.nl/2009/11/sem/hasLatestEndTimestamp> "1683"^^<http://www.w3.org/2001/XMLSchema#gYear> .
+_:B1c592241c859acfda8ee8076a6815393 <https://w3id.org/pnv#literalName> "P. Nyland" .
+_:B1c592241c859acfda8ee8076a6815393 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pnv#PersonName> .
+_:Bb1767ed6751eff805eda8a2a9b8250a7 <http://data.bibliotheken.nl/def#ppn> "192741446" .
+_:Bb1767ed6751eff805eda8a2a9b8250a7 <http://xmlns.com/foaf/0.1/primaryTopic> <http://data.bibliotheken.nl/id/nbt/p192741446> .
+_:Bb1767ed6751eff805eda8a2a9b8250a7 <http://rdfs.org/ns/void#inDataset> <http://data.bibliotheken.nl/id/dataset/stcn> .
+_:Bb1767ed6751eff805eda8a2a9b8250a7 <http://www.w3.org/2002/07/owl#sameAs> <http://data.bibliotheken.nl/doc/nbt/p192741446> .
+_:Bb1767ed6751eff805eda8a2a9b8250a7 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Document> .
+_:B3a843468d07ce8109863a99a81a4cdde <http://schema.org/name> "P. Nyland" .
+_:B3a843468d07ce8109863a99a81a4cdde <https://w3id.org/pnv#hasName> _:B1c592241c859acfda8ee8076a6815393 .
+_:B3a843468d07ce8109863a99a81a4cdde <http://schema.org/author> <http://data.bibliotheken.nl/id/thes/p070344442> .
+_:B3a843468d07ce8109863a99a81a4cdde <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.org/Role> .
+```
+
+For which we can then also follow one of the `<http://schema.org/publishedBy>` and then get:
+
+```
+<http://data.bibliotheken.nl/id/thes/p075547279> <http://schema.org/additionalType> <http://www.productontology.org/id/Printer_%28publishing%29> .
+<http://data.bibliotheken.nl/id/thes/p075547279> <http://schema.org/name> "Groot, Michiel de (wed.)" .
+<http://data.bibliotheken.nl/id/thes/p075547279> <http://schema.org/location> _:Bb0dfdbebfdd115170ae1b4aab504d3b5 .
+<http://data.bibliotheken.nl/id/thes/p075547279> <http://schema.org/description> "Amsterdam 1681-1683" .
+<http://data.bibliotheken.nl/id/thes/p075547279> <http://xmlns.com/foaf/0.1/isPrimaryTopicOf> _:B66d3431499c0e7eb65befef349af27d1 .
+<http://data.bibliotheken.nl/id/thes/p075547279> <http://www.w3.org/2000/01/rdf-schema#label> "Groot, Michiel de (wed.) (Printer)" .
+<http://data.bibliotheken.nl/id/thes/p075547279> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.org/Organization> .
+_:B66d3431499c0e7eb65befef349af27d1 <http://data.bibliotheken.nl/def#ppn> "075547279" .
+_:B66d3431499c0e7eb65befef349af27d1 <http://creativecommons.org/ns#license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+_:B66d3431499c0e7eb65befef349af27d1 <http://xmlns.com/foaf/0.1/primaryTopic> <http://data.bibliotheken.nl/id/thes/p075547279> .
+_:B66d3431499c0e7eb65befef349af27d1 <http://rdfs.org/ns/void#inDataset> <http://data.bibliotheken.nl/id/dataset/stcn> .
+_:B66d3431499c0e7eb65befef349af27d1 <http://www.w3.org/2002/07/owl#sameAs> <http://data.bibliotheken.nl/doc/thes/p075547279> .
+_:B66d3431499c0e7eb65befef349af27d1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Document> .
+_:Bb0dfdbebfdd115170ae1b4aab504d3b5 <http://schema.org/address> _:B8d1328e57f1a7e0a40e874b6fd406475 .
+_:Bb0dfdbebfdd115170ae1b4aab504d3b5 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.org/Place> .
+_:B8d1328e57f1a7e0a40e874b6fd406475 <http://schema.org/addressLocality> "Amsterdam" .
+_:B8d1328e57f1a7e0a40e874b6fd406475 <http://schema.org/addressCountry> "iso3166-1:NLD" .
+_:B8d1328e57f1a7e0a40e874b6fd406475 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.org/PostalAddress> .
+```
+
+But in the original `stcn_20201105.ttl` data dump, there are no subjects for `<http://data.bibliotheken.nl/id/thes/p075547279>` Where are they hiding?
