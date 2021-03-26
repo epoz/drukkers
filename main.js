@@ -8,6 +8,13 @@ sats = L.tileLayer(
     maxZoom: 19,
   }
 );
+
+mapz = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}", {
+  foo: "bar",
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+});
+
 debroen = L.tileLayer(
   "https://images.huygens.knaw.nl/webmapper/maps/debroen/{z}/{x}/{y}.png",
   {
@@ -18,13 +25,14 @@ debroen = L.tileLayer(
 
 var baseMaps = {
   "De Broen": debroen,
-  Satellite: sats,
+  Sats: sats,
+  Map: mapz,
 };
 
-var mymap = L.map("mapid", { layers: [debroen, sats], tap: false }).setView(
-  [52.368223, 4.893425],
-  14
-);
+var mymap = L.map("mapid", {
+  layers: [debroen, sats, mapz],
+  tap: false,
+}).setView([52.368223, 4.893425], 14);
 L.control.layers(baseMaps).addTo(mymap);
 
 document.getElementById("slider_begin").addEventListener("input", (event) => {
