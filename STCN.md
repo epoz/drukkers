@@ -2,8 +2,7 @@
 
 `2021-03-26`
 
-It's a Friday night, and there have been some crappy things
-going on with regards to my passion projects.
+It's a Friday night.
 What to do? Make something cool, for no rhyme or reason other
 than being balm for the soul.
 
