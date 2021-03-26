@@ -105,8 +105,27 @@ That gives a hefty 10 541 701 triples. But we can now start exploring:
  'https://w3id.org/pnv#nameSpecification'}
 
  # 🤯 The thlot pickens
+# But I STILL want that list of printer/publisher names, please.
+>>> publishers = [o for s,p,o in triples if p == 'http://schema.org/publishedBy']
+>>> len(publishers)
+10926
+# That's more like it!
 
+# But, that does not seem to be it either.
+len([(s,p,o) for s,p,o in triples if s in publishers])
+
+# What other predicate could it be?
+>>> producers = set([o for s,p,o in triples if p == 'http://schema.org/producer']
+>>> len(producers)
+49976
+>>> data = {}
+>>> for s,p,o in triples:
+>>>    if s in producer:
+>>>        data.setdefault(s, {}).setdefault(p, []).append(o)
+
+# Still does not seem to be what I am looking for. 🙁
+
+>>> random.choice(list(data.values()))
+{'http://www.w3.org/1999/02/22-rdf-syntax-ns#type': ['http://schema.org/GovernmentOrganization'],
+ 'http://schema.org/location': ['http://data.bibliotheken.nl/id/thes/p075588749']}
 ```
-
-http://data.kb.nl/catalogus/163434107
-http://purl.org/dc/elements/1.1/publisher
