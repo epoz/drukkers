@@ -328,6 +328,11 @@ Compare the last result above [to the web page](http://data.bibliotheken.nl/doc/
   'http://schema.org/publishedBy',
   'http://data.bibliotheken.nl/id/thes/p075568284')]
 
+
+>>> len([(s,p,o) for s, p, o in triples if p != 'http://schema.org/publishedBy' and (s == 'http://data.bibliotheken.nl/id/thes/p075568284' or o == 'http://data.bibliotheken.nl/id/thes/p075568284')])
+0
+
+# Yes, that's zero.
 ```
 
 It looks like "Organization" info, or specifically, what I am looking for in the dump the printers info is just not in the raw data dump. But you can access it via the http://data.bibliotheken.nl/ SPARQL query service.
