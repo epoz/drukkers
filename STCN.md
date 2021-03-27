@@ -176,6 +176,8 @@ _:B3a843468d07ce8109863a99a81a4cdde <http://www.w3.org/1999/02/22-rdf-syntax-ns#
 
 For which we can then also follow one of the `<http://schema.org/publishedBy>` and then get:
 
+http://data.bibliotheken.nl/doc/thes/p075547279.nt
+
 ```
 <http://data.bibliotheken.nl/id/thes/p075547279> <http://schema.org/additionalType> <http://www.productontology.org/id/Printer_%28publishing%29> .
 <http://data.bibliotheken.nl/id/thes/p075547279> <http://schema.org/name> "Groot, Michiel de (wed.)" .
@@ -198,3 +200,134 @@ _:B8d1328e57f1a7e0a40e874b6fd406475 <http://www.w3.org/1999/02/22-rdf-syntax-ns#
 ```
 
 But in the original `stcn_20201105.ttl` data dump, there are no subjects for `<http://data.bibliotheken.nl/id/thes/p075547279>` Where are they hiding?
+
+## Eureka
+
+Stop resisting and learn to love the bomb. Just use the SPARQL:
+
+```
+SELECT *
+WHERE {
+?s dc:type "drukker"@nl.
+?s skos:prefLabel ?name.
+}
+```
+
+Running that on the http://openvirtuoso.kbresearch.nl/sparql endpoint, I could dump out a table of printers and their names, as I was looking for. But itn the .ttl dump, there are no dc:type predicates to be found?
+
+Looking at the list of predicates, there is a https://w3id.org/pnv#literalName though, maybe that is a thread to follow.
+
+```python
+>>> a = [(s,p,o) for s, p, o in triples if p == 'https://w3id.org/pnv#literalName']
+>>> random.choice(a)
+('b20867847', 'https://w3id.org/pnv#literalName', '"Petrus Apherdianus"')
+
+# Aha! Now we are getting somewhere
+>>> [(s,p,o) for s, p, o in triples if s == 'b20867847']
+[('b20867847',
+  'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+  'https://w3id.org/pnv#PersonName'),
+ ('b20867847', 'https://w3id.org/pnv#literalName', '"Petrus Apherdianus"')]
+
+>>> [(s,p,o) for s, p, o in triples if o == 'b20867847']
+[('b20867846', 'https://w3id.org/pnv#hasName', 'b20867847')]
+
+>>> [(s,p,o) for s, p, o in triples if s == 'b20867846']
+[('b20867846',
+  'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+  'http://schema.org/Role'),
+ ('b20867846', 'https://w3id.org/pnv#hasName', 'b20867847'),
+ ('b20867846',
+  'http://schema.org/contributor',
+  'http://data.bibliotheken.nl/id/thes/p072821043'),
+ ('b20867846', 'http://schema.org/name', '"Petrus Apherdianus"')]
+
+>>> [(s,p,o) for s, p, o in triples if o == 'b20867846']
+[('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/contributor',
+  'b20867846')]
+
+>>> [(s,p,o) for s, p, o in triples if s == 'http://data.bibliotheken.nl/id/nbt/p831161175']
+
+[('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+  'http://schema.org/Book'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://xmlns.com/foaf/0.1/isPrimaryTopicOf',
+  'b20867849'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/author',
+  'b20867844'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/description',
+  '"TB 242"'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/contributor',
+  'b20867846'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/about',
+  'http://data.bibliotheken.nl/id/thes/p155444921'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/inLanguage',
+  '"iso639-3:lat"'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/name',
+  '"Loci commvnes, ex similibvs et apophthegmatibvs."'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/publication',
+  'b20867848'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://schema.org/alternativeTitle',
+  '"Works. Selection"'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://data.bibliotheken.nl/def#statementOfResponsibilityPart',
+  'b20867843'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://data.bibliotheken.nl/def#statementOfResponsibilityPart',
+  'b20867842'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://data.bibliotheken.nl/def#bibliographicFormat',
+  '"8°"'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://data.bibliotheken.nl/def#hasCollationalFormula',
+  '"A-F`SUP`8`LO` G`SUP`4`LO` H-I`SUP`8`LO`"'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://data.bibliotheken.nl/def#stcnFingerprint',
+  '"155708 - b1 A2 itur.$Et : *b2 I4 ros$uia"'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://data.bibliotheken.nl/def#typographicalCharacteristics',
+  '"printer\'s device"'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://data.bibliotheken.nl/def#typographicalCharacteristics',
+  '"typeface Italic"'),
+ ('http://data.bibliotheken.nl/id/nbt/p831161175',
+  'http://data.bibliotheken.nl/def#typographicalCharacteristics',
+  '"typographical title page"')]
+```
+
+Compare the last result above [to the web page](http://data.bibliotheken.nl/doc/nbt/p831161175) at the KB, which is much more readable.
+
+```python
+>>> publications = list(set([o for s,p,o in triples if p == 'http://schema.org/publication']))
+>>> random.choice(publications)
+'b20626606'
+
+>>> [(s,p,o) for s, p, o in triples if s == 'b20626606']
+[('b20626606',
+  'http://semanticweb.cs.vu.nl/2009/11/sem/hasLatestEndTimestamp',
+  '"1748"^^<http://www.w3.org/2001/XMLSchema#gYear>'),
+ ('b20626606',
+  'http://semanticweb.cs.vu.nl/2009/11/sem/hasEarliestBeginTimestamp',
+  '"1748"^^<http://www.w3.org/2001/XMLSchema#gYear>'),
+ ('b20626606',
+  'http://schema.org/description',
+  '"\'sGravenhage, J. Scheltus printer, 1748"'),
+ ('b20626606', 'http://schema.org/startDate', '"1748"'),
+ ('b20626606', 'http://schema.org/location', '"iso3166-1:NLD"'),
+ ('b20626606',
+  'http://schema.org/publishedBy',
+  'http://data.bibliotheken.nl/id/thes/p075568284')]
+
+```
+
+It looks like "Organization" info, or specifically, what I am looking for in the dump the printers info is just not in the raw data dump. But you can access it via the http://data.bibliotheken.nl/ SPARQL query service.
