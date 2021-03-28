@@ -1,10 +1,16 @@
 # STCN exploration
 
-`2021-03-26`
+Investigations started on: `2021-03-26`
 
-It's a Friday night.
-What to do? Make something cool, for no rhyme or reason other
-than being balm for the soul.
+## What am I trying to achieve by playing with the STCN SPARQL data?
+
+Firstly, let me unequivocally state that it is _brilliant_ that the KB is offering their data in this way. Hat-tip to the data team for doing so. It is a fiendishly difficult thing to pull off.
+
+For some reason, I have just never been able to full get to grips with SPARQL. The mental effort required to do anything non-trivial just always seems out of my reach. Which is odd, tis not like I am entirely stupid, and I have conquered other complex things before.
+
+To be specific, my next goal is to build an interactive visualization of the STCN data, giving a view of the printers/publishers and their number of publications in the STCN.
+
+## Intro
 
 We have the [SPARQL version](https://www.kb.nl/organisatie/onderzoek-expertise/informatie-infrastructuur-diensten-voor-bibliotheken/short-title-catalogue-netherlands-stcn/zoeken-in-de-stcn-met-sparql), but that is slow and makes my head hurt. So time to do some alternative exploring. So first let's just [get a raw data dump](http://data.bibliotheken.nl/doc/dataset/stcn). Downloading the file, `stcn_20201105.ttl` is 542MB of juicy texty triples.
 
@@ -335,4 +341,12 @@ Compare the last result above [to the web page](http://data.bibliotheken.nl/doc/
 # Yes, that's zero.
 ```
 
-It looks like "Organization" info, or specifically, what I am looking for in the dump the printers info is just not in the raw data dump. But you can access it via the http://data.bibliotheken.nl/ SPARQL query service.
+It looks like "Organization" info, or specifically, what I am looking for in the dump the printers info is just not in the raw data dump. But you can access it via the [SPARQL query service](http://data.bibliotheken.nl/sparql?default-graph-uri=&query=select+%3Fpublisher%2C+%3Fname%2C+count%28*%29+as+%3Faantal+where+%7B%0D%0A%3Fs+%3Chttp%3A%2F%2Fschema.org%2Fpublication%3E+%3Fo.%0D%0A%3Fo+%3Chttp%3A%2F%2Fschema.org%2FpublishedBy%3E+%3Fpublisher.%0D%0A%3Fpublisher+%3Chttp%3A%2F%2Fschema.org%2Fname%3E+%3Fname%0D%0A%7D+LIMIT+300&format=text%2Fx-html%2Btr&timeout=0&debug=on&run=+Run+Query+) .
+
+```
+select ?publisher, ?name, count(*) as ?aantal where {
+?s <http://schema.org/publication> ?o.
+?o <http://schema.org/publishedBy> ?publisher.
+?publisher <http://schema.org/name> ?name
+}
+```
