@@ -16,7 +16,7 @@ We have the [SPARQL version](https://www.kb.nl/organisatie/onderzoek-expertise/i
 
 How do we explore an unknown RDF dump, to get at the meat and potatoes? We could [read the manual](https://www.kb.nl/sites/default/files/docs/handleiding_zoeken_in_stcn_met_sparql_versie_011.pdf). On page 10 there is a nice succint example of the kind of triples we can look for. But first let's load the .ttl file into a Python prompt.
 
-Do we convert it to: https://www.rdfhdt.org/ ? No we just use that so we can do another form of querying. Had to trick down [my own Tweet](https://twitter.com/epoz/status/1357679850757255169) where I learned about that in the first place. But it ain't an HDT file yet, so read it raw first with [rdflib](https://rdflib.readthedocs.io/).
+Read the data raw, first with [rdflib](https://rdflib.readthedocs.io/).
 
 ```python
 from rdflib import Graph
